@@ -21,17 +21,6 @@ This problem falls under the **Searching & Hashing** paradigm. Two approaches ar
 | **Useful for** | Small datasets, unsorted lists, infrequent searches, and memory-constrained systems. | Large datasets and high-frequency real-time lookups. |
 | **Chosen** | Standard Sequential Search | Separate Chaining |
 
-### Types / Variants
-
-| Linear Search Variants | Hashing Variants |
-|---|---|
-| **Standard Sequential Search** [Chosen] | **Separate Chaining** [Chosen] |
-| Checks elements one by one without modifying the input. | Stores collided keys in a linked-list chain at the same bucket. |
-| **Sentinel Linear Search** [Not Chosen] | **Open Addressing** [Not Chosen] |
-| Requires adding a temporary sentinel to the array. | Probes neighbouring slots after a collision; can cause clustering. |
-| **Self-Organizing Search** [Not Chosen] | **Perfect Hashing** [Not Chosen] |
-| Reorders elements after searches, adding write overhead. | Requires a static, completely known set of keys. |
-
 ---
 
 ## 3. Step-by-Step Example
