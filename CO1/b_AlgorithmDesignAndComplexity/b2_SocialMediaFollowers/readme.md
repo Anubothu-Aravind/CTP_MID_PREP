@@ -151,19 +151,57 @@ $$i = \text{hash-code}(k) \bmod m$$
 ## 6. Algorithm Procedures
 
 ### Linear Search Algorithm
-1. **Input**: List of usernames $L$ of size $n$, target query string $T$.
-2. **Procedure**:
-   - Loop index $i$ from $0$ to $n - 1$:
-     - If $L[i] == T$, return `(True, i + 1)`.
-3. **Output**: `(False, n)` if target is not present.
+
+1. **Input**:
+   - List of follower usernames $L = [u_0, u_1, \dots, u_{n-1}]$ of size $n$.
+   - Target query string $T$ to be searched.
+
+2. **Initialization**:
+   - Set comparison counter $\text{comparisons} = 0$.
+
+3. **Procedural Logic**:
+   - **Step 1 (Iterate)**: For loop index $i$ from $0$ to $n - 1$:
+     - Increment operation counter: $\text{comparisons} = \text{comparisons} + 1$.
+     - Compare target $T$ with list element $L[i]$.
+     - **Match Check**: If $L[i] == T$:
+       - Target found. Terminate execution immediately and return `(FOUND, comparisons)`.
+   - **Step 2 (Not Found)**: If loop finishes without encountering $T$:
+     - Return `(NOT FOUND, comparisons)` where $\text{comparisons} = n$.
+
+4. **Output**:
+   - Tuple `(Status, Operations)` where `Status` is boolean/string (`FOUND` / `NOT FOUND`) and `Operations` is total element comparisons performed ($1 \le \text{comparisons} \le n$).
+
+---
 
 ### Hash-based Search Algorithm (Separate Chaining)
-1. **Input**: Separate Chaining Hash Table $H$ of capacity $m$, target query string $T$.
-2. **Procedure**:
-   - Compute hash bucket index $idx = h(T) \bmod m$.
-   - Retrieve bucket list $chain = H[idx]$.
-   - Traverse $chain$: if node value equals $T$, return `(True, probes)`.
-3. **Output**: Return `(False, probes)` if target key is not present in bucket chain.
+
+1. **Input**:
+   - Separate Chaining Hash Table $H$ of capacity $m$ (an array of $m$ bucket chains).
+   - Target query string $T$ to be searched.
+   - Hash function $h(k) = \sum_{c \in k} \text{ASCII}(c)$.
+
+2. **Initialization**:
+   - Set chain probe counter $\text{probes} = 0$.
+
+3. **Procedural Logic**:
+   - **Step 1 (Compute Hash & Index)**:
+     - Compute ASCII summation hash value: $\text{hash-code}(T) = \sum_{c \in T} \text{ASCII}(c)$.
+     - Map hash code to bucket index using modulo arithmetic: $idx = \text{hash-code}(T) \bmod m$.
+   - **Step 2 (Access Bucket)**:
+     - Direct jump to array position $idx$ to access linked list chain $chain = H[idx]$.
+   - **Step 3 (Chain Traversal & Match Check)**:
+     - If $chain$ is empty:
+       - Return `(NOT FOUND, 1)` (1 probe performed to verify empty bucket).
+     - Traverse each element $node$ in $chain$:
+       - Increment chain probe counter: $\text{probes} = \text{probes} + 1$.
+       - Compare $node$ value with target $T$.
+       - **Match Check**: If $node == T$:
+         - Target found. Terminate execution immediately and return `(FOUND, probes)`.
+   - **Step 4 (Not Found)**: If end of chain is reached without encountering $T$:
+     - Return `(NOT FOUND, probes)`.
+
+4. **Output**:
+   - Tuple `(Status, Operations)` where `Status` is boolean/string (`FOUND` / `NOT FOUND`) and `Operations` is total chain nodes probed ($1 \le \text{probes} \le \text{length of chain}$).
 
 ---
 
