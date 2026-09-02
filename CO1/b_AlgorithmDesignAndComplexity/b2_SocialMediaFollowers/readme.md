@@ -181,12 +181,6 @@ if __name__ == "__main__":
     print("-" * 60)
     print(f"Linear Search          {res_ls:<15} {probe_str_ls}")
     print(f"Separate Chaining Hash  {res_hs:<15} {probe_str_hs}")
-    print("-" * 60)
-    print()
-    print("Conclusion:")
-    print("Linear Search  → O(n)")
-    print("Hash Search    → O(1) expected")
-    print("=" * 60)
 ```
 
 ---
@@ -220,3 +214,15 @@ Linear Search  → O(n)
 Hash Search    → O(1) expected
 ============================================================
 ```
+
+### Complexity Comparison Table
+
+| Feature / Metric | Linear Search | Separate Chaining Hash Searching |
+| :--- | :--- | :--- |
+| **Data Structure** | Array / Python `list` | Hash Table with Linked Lists (`HashTableChaining`) |
+| **Best-case Complexity** | $O(1)$ (target is at index 0) | $O(1)$ |
+| **Expected / Average Complexity** | **$O(n)$** | **$O(1)$** |
+| **Worst-case Complexity** | $O(n)$ (target at end or missing) | $O(n)$ (all keys collide into 1 bucket) |
+| **Auxiliary Space Complexity** | $O(1)$ extra space | $O(n)$ extra space |
+| **Pre-processing Overhead** | $O(0)$ (No setup) | $O(n)$ (Build hash table) |
+| **Best Suited For** | Small datasets ($n < 50$) | Large scale datasets ($n \ge 1,000$) |
