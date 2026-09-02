@@ -152,56 +152,32 @@ $$i = \text{hash-code}(k) \bmod m$$
 
 ### Linear Search Algorithm
 
-1. **Input**:
-   - List of follower usernames $L = [u_0, u_1, \dots, u_{n-1}]$ of size $n$.
-   - Target query string $T$ to be searched.
-
-2. **Initialization**:
-   - Set comparison counter $\text{comparisons} = 0$.
-
-3. **Procedural Logic**:
-   - **Step 1 (Iterate)**: For loop index $i$ from $0$ to $n - 1$:
-     - Increment operation counter: $\text{comparisons} = \text{comparisons} + 1$.
-     - Compare target $T$ with list element $L[i]$.
-     - **Match Check**: If $L[i] == T$:
-       - Target found. Terminate execution immediately and return `(FOUND, comparisons)`.
-   - **Step 2 (Not Found)**: If loop finishes without encountering $T$:
-     - Return `(NOT FOUND, comparisons)` where $\text{comparisons} = n$.
-
-4. **Output**:
-   - Tuple `(Status, Operations)` where `Status` is boolean/string (`FOUND` / `NOT FOUND`) and `Operations` is total element comparisons performed ($1 \le \text{comparisons} \le n$).
+1. **Input**: List of follower usernames $L$ of size $n$, target query string $T$.
+2. **Procedure**:
+   1. Start at the first element (index $0$).
+   2. Compare the current element $L[i]$ with the target key $T$.
+   3. If they match, return `(FOUND, comparisons)` (where `comparisons` $= i + 1$) and exit.
+   4. If they do not match, move to the next element (increment index $i$ and comparison count).
+   5. Repeat steps 2–4 until a match is found or the end of the list is reached.
+   6. If the end of the list is reached without a match, return `(NOT FOUND, comparisons)` (where `comparisons` $= n$).
+3. **Output**: Result status (`FOUND` / `NOT FOUND`) and total element comparisons performed.
 
 ---
 
 ### Hash-based Search Algorithm (Separate Chaining)
 
-1. **Input**:
-   - Separate Chaining Hash Table $H$ of capacity $m$ (an array of $m$ bucket chains).
-   - Target query string $T$ to be searched.
-   - Hash function $h(k) = \sum_{c \in k} \text{ASCII}(c)$.
-
-2. **Initialization**:
-   - Set chain probe counter $\text{probes} = 0$.
-
-3. **Procedural Logic**:
-   - **Step 1 (Compute Hash & Index)**:
-     - Compute ASCII summation hash value: $\text{hash-code}(T) = \sum_{c \in T} \text{ASCII}(c)$.
-     - Map hash code to bucket index using modulo arithmetic: $idx = \text{hash-code}(T) \bmod m$.
-   - **Step 2 (Access Bucket)**:
-     - Direct jump to array position $idx$ to access linked list chain $chain = H[idx]$.
-   - **Step 3 (Chain Traversal & Match Check)**:
-     - If $chain$ is empty:
-       - Return `(NOT FOUND, 1)` (1 probe performed to verify empty bucket).
-     - Traverse each element $node$ in $chain$:
-       - Increment chain probe counter: $\text{probes} = \text{probes} + 1$.
-       - Compare $node$ value with target $T$.
-       - **Match Check**: If $node == T$:
-         - Target found. Terminate execution immediately and return `(FOUND, probes)`.
-   - **Step 4 (Not Found)**: If end of chain is reached without encountering $T$:
-     - Return `(NOT FOUND, probes)`.
-
-4. **Output**:
-   - Tuple `(Status, Operations)` where `Status` is boolean/string (`FOUND` / `NOT FOUND`) and `Operations` is total chain nodes probed ($1 \le \text{probes} \le \text{length of chain}$).
+1. **Input**: Separate Chaining Hash Table $H$ of capacity $m$, target query string $T$, hash function $h(k) = \sum_{c \in k} \text{ASCII}(c)$.
+2. **Procedure**:
+   1. Compute the ASCII summation hash value: $\text{hash-code}(T) = \sum_{c \in T} \text{ASCII}(c)$.
+   2. Map the hash value to a bucket index using modulo arithmetic: $idx = \text{hash-code}(T) \bmod m$.
+   3. Direct jump to access the bucket chain $chain = H[idx]$ in the hash table.
+   4. Start at the first node of the bucket chain.
+   5. Compare the current node's value with the target key $T$.
+   6. If they match, return `(FOUND, probes)` (where `probes` is the current node position) and exit.
+   7. If they do not match, move to the next node in the chain (increment probe count).
+   8. Repeat steps 5–7 until a match is found or the end of the chain is reached.
+   9. If the end of the chain is reached without a match, return `(NOT FOUND, probes)` (meaning the target is not present in the table).
+3. **Output**: Result status (`FOUND` / `NOT FOUND`) and total chain nodes probed.
 
 ---
 
