@@ -108,10 +108,11 @@ Both inputs therefore represent the same normalized username and can be detected
 ### Hash Function
 
 **Hash Code Formula:**
-$$\text{hash\_code}(k) = \sum_{c \in k} \text{ASCII}(c)$$
+$$\text{hash-code}(k) = \sum_{c \in k} \text{ASCII}(c)$$
+
 
 **Bucket Index Formula:**
-$$i = \text{hash\_code}(k) \bmod m$$
+$$i = \text{hash-code}(k) \bmod m$$
 
 ### Hash Table Construction
 
